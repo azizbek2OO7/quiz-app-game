@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: cursive;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+  width: 480px;
+  border-radius: 8px;
+  padding: 0 25px;
+  height: 98%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.event {
+  width: auto;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  color: #fff;
+  background-color: #0d6efd;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.event:focus {
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+}
+
+.name {
+  font-size: 70px;
+  letter-spacing: 9px;
+  color: orange;
+  margin-bottom: 30px;
+}
+
+.game {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-around;
+  border-bottom: 1px solid dodgerblue;
+  margin-bottom: 30px;
+}
+
+.game .num {
+  background-color: aquamarine;
+  /* padding: 2px 25px; */
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 40px;
+  user-select: none;
+  width: 100px;
+}
+
+.game .operation {
+  font-size: 40px;
+  color: blue;
+}
+
+.test {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  background-color: dodgerblue;
+  border-radius: 6px;
+  transition: 0.1s linear;
+}
+
+.btn:active {
+  scale: 0.96;
+}
+
+.winner {
+  background-color: limegreen;
+}
+
+.lose-game,
+.win-game {
+  display: grid;
+  place-items: center;
+  gap: 30px;
+}
+
+.win {
+  font-size: 60px;
+}
+
+.lose {
+  font-size: 80px;
+  color: red;
+}
