@@ -1,9 +1,16 @@
+const section = document.querySelector("section");
 const container = document.querySelector(".container");
 const startBtn = document.querySelector(".start-btn");
+const name = document.querySelector(".name");
+const navbar = document.querySelector(".navbar");
+const level = document.querySelector(".level span");
+const bestScore = document.querySelector(".best-score span");
+let counter = 1;
+bestScore.textContent = "0";
 
 const arr = [];
 let result;
-let winBoard;
+let nextLevelElm;
 let lostGame;
 let laugh;
 let game;
@@ -38,9 +45,6 @@ function nearResult() {
 
 function renderGame() {
   [...container.children].forEach((elm) => elm.remove());
-  const nameElm = document.createElement("h1");
-  nameElm.classList.add("name");
-  nameElm.textContent = "QUIZ APP";
 
   game = document.createElement("div");
   game.classList.add("game");
@@ -60,16 +64,16 @@ function renderGame() {
     `${num.textContent}${operation.textContent}${num2.textContent}`
   );
 
-  laugh = document.createElement("div");
-  if (operation.textContent === "+") {
-    laugh.classList.add("win");
-    laugh.textContent = "Shuni ham topa olmadingmi 🤣";
-  } else {
-    laugh.textContent = "";
-  }
+  // laugh = document.createElement("div");
+  // if (operation.textContent === "+") {
+  //   laugh.classList.add("win");
+  //   laugh.textContent = "Shuni ham topa olmadingmi 🤣";
+  // } else {
+  //   laugh.textContent = "";
+  // }
 
   game.append(num, operation, num2);
-  container.append(nameElm, game);
+  container.appendChild(game);
 }
 
 function renderTest() {
@@ -93,21 +97,15 @@ function renderTest() {
       elm.style.pointerEvents = "none";
     }
     setTimeout(() => {
-      container.style.display = "none";
-      winBoard = document.createElement("div");
-      winBoard.classList.add("win-game");
-
-      const winElm = document.createElement("h1");
-      winElm.classList.add("win");
-      winElm.textContent = "😂 You Won This Level 🏆";
-
-      const nextLevelElm = document.createElement("button");
+      nextLevelElm = document.createElement("button");
       nextLevelElm.textContent = "Next level ->";
       nextLevelElm.classList.add("event");
-      nextLevelElm.addEventListener("click", handleNextLevel);
+      nextLevelElm.addEventListener("click", () => {
+        nextLevelElm.style.pointerEvents = "none";
+        handleNextLevel();
+      });
 
-      winBoard.append(winElm, nextLevelElm);
-      document.body.appendChild(winBoard);
+      section.appendChild(nextLevelElm);
     }, 1000);
   });
 
@@ -125,7 +123,20 @@ function renderTest() {
           elm.style.pointerEvents = "none";
         }
         setTimeout(() => {
+          document.body.style.backgroundColor = "#fff";
           container.style.display = "none";
+          section.style.display = "none";
+
+          localStorage.setItem("score", counter - 1);
+          let mainScore = +localStorage.getItem("score");
+
+          const score = document.createElement("div");
+          bestScore.textContent = mainScore;
+          score.classList.add("score");
+          score.textContent = `Your Best Score: ${mainScore}`;
+
+          name.style.display = "none";
+          navbar.style.display = "none";
           lostGame = document.createElement("div");
           lostGame.classList.add("lose-game");
 
@@ -138,8 +149,8 @@ function renderTest() {
           resetBtn.classList.add("event");
           resetBtn.addEventListener("click", handleResetGame);
 
-          lostGame.append(loseElm, resetBtn, laugh);
-          document.body.append(lostGame);
+          lostGame.append(score, loseElm, resetBtn);
+          document.body.appendChild(lostGame);
         }, 1000);
       });
     }
@@ -153,14 +164,28 @@ function renderTest() {
 function handleResetGame() {
   lostGame.style.display = "none";
   reloadFunctions();
+  document.body.style.backgroundColor = "rgb(97, 97, 240)";
+  section.style.display = "grid";
+  name.style.display = "block";
+  navbar.style.display = "flex";
+
+  counter = 1;
+  level.textContent = counter;
 }
 
 function handleNextLevel() {
-  winBoard.style.display = "none";
   reloadFunctions();
+  setTimeout(() => {
+    nextLevelElm.remove();
+  }, 1000);
+  counter++;
+  level.textContent = counter;
 }
 
 function handleStart(e) {
+  document.body.style.backgroundColor = "rgb(97, 97, 240)";
   e.target.remove();
   reloadFunctions();
+  name.style.display = "block";
+  navbar.style.display = "flex";
 }

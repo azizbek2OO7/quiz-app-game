@@ -12,6 +12,29 @@ body {
   text-align: center;
 }
 
+section {
+  display: grid;
+  align-items: center;
+  /* gap: 40px; */
+  background-color: #fff;
+  height: 98%;
+  border-radius: 8px;
+  padding: 0 20px;
+}
+
+.navbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 40px;
+  padding: 0 30px;
+}
+
+.navbar span {
+  color: rgb(97, 97, 240);
+}
+
 .container {
   width: 480px;
   border-radius: 8px;
@@ -20,6 +43,7 @@ body {
   display: none;
   flex-direction: column;
   justify-content: space-evenly;
+  gap: 40px;
 }
 
 .event {
@@ -50,6 +74,7 @@ body {
   letter-spacing: 9px;
   color: orange;
   margin-bottom: 30px;
+  display: none;
 }
 
 .game {
@@ -105,6 +130,11 @@ body {
   display: grid;
   place-items: center;
   gap: 30px;
+}
+
+.score {
+  font-size: 50px;
+  color: indigo;
 }
 
 .win {
