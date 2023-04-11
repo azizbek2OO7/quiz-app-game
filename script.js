@@ -9,11 +9,13 @@ let counter = 1;
 bestScore.textContent = "0";
 
 const arr = [];
+let ansCount = 0;
 let result;
 let nextLevelElm;
 let lostGame;
 let laugh;
 let game;
+let mainScore;
 
 // LOGIC FUNCTIONS
 startBtn.addEventListener("click", handleStart);
@@ -25,6 +27,7 @@ function reloadFunctions() {
   nearResult();
   renderGame();
   renderTest();
+  ansCount = 0;
 }
 
 function randomNum() {
@@ -38,7 +41,8 @@ function randOperation() {
 }
 
 function nearResult() {
-  return Math.floor(Math.random() * result) + (result + 10);
+  let idx = Math.floor(Math.random() * arr.length);
+  return arr[ansCount];
 }
 
 // RENDER FUNCTIONS
@@ -63,6 +67,7 @@ function renderGame() {
   result = eval(
     `${num.textContent}${operation.textContent}${num2.textContent}`
   );
+  arr.splice(0);
 
   // laugh = document.createElement("div");
   // if (operation.textContent === "+") {
@@ -112,8 +117,10 @@ function renderTest() {
   console.log(result);
   for (let item of testElm.children) {
     if (!item.classList.contains("answer")) {
-      item.textContent = nearResult();
-      console.log(item.textContent);
+      // console.log(item.textContent);
+      arr.push(+result - 2, +result + 2, +result - 1);
+      item.textContent = arr[ansCount];
+      ansCount++;
 
       item.addEventListener("click", () => {
         item.style.backgroundColor = "red";
@@ -127,13 +134,10 @@ function renderTest() {
           container.style.display = "none";
           section.style.display = "none";
 
-          localStorage.setItem("score", counter - 1);
-          let mainScore = +localStorage.getItem("score");
-
           const score = document.createElement("div");
-          bestScore.textContent = mainScore;
+          bestScore.textContent = counter - 1;
           score.classList.add("score");
-          score.textContent = `Your Best Score: ${mainScore}`;
+          score.textContent = `Your Best Score: ${counter - 1}`;
 
           name.style.display = "none";
           navbar.style.display = "none";
@@ -175,9 +179,7 @@ function handleResetGame() {
 
 function handleNextLevel() {
   reloadFunctions();
-  setTimeout(() => {
-    nextLevelElm.remove();
-  }, 1000);
+  nextLevelElm.remove();
   counter++;
   level.textContent = counter;
 }
