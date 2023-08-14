@@ -1,1 +1,2 @@
-Quiz App Game link -> https://azizbek2oo7.github.io/Quiz-App-Game/
+# Quiz App Game
+link -> https://simple-quiz-app-game.netlify.app
